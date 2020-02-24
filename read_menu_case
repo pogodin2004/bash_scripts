@@ -1,0 +1,32 @@
+#!/bin/bash
+
+clear
+echo "
+Please Select:
+1. System Info
+2. Disk Space
+3. Home Space
+0. Quit
+"
+
+read -p "Enter selection [0-3] > "
+
+case $REPLY in
+	1)	echo "Hostname: $HOSTNAME"
+		uptime
+		;;
+	2)	df -h
+		;;
+	3)	if [[ $(id -u) -eq 0 ]]; then
+			echo "Home Space (All Users)"
+			du -sh /home/*
+		else
+			echo "Home Space ($USER)"
+			du -sh $HOME
+		fi
+		;;
+	0)	echo "Program Terminated"
+		;;
+	*)	echo "Invalid entry" >&2
+		;;
+esac

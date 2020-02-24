@@ -1,0 +1,40 @@
+#!/bin/bash
+
+invalid_input () {
+	echo "Invalid input '$REPLY'" >&2
+	exit 1
+}
+
+read -p "Enter a single item > "
+
+#Empty input
+[[ -z $REPLY ]] && invalid_input
+
+#Multiply input
+(($(echo $REPLY | wc -w) > 1)) && invalid_input
+
+#Incorrect filename
+if [[ $REPLY =~ ^[-[:alnum:]\._]+$ ]]; then
+	echo "'$REPLY' is a valid filename"
+	if [[ -e $REPLY ]]; then
+		echo "and file '$REPLY' exists"
+	else
+		echo "file '$REPLY' does not exist"
+	fi
+
+	#Float number
+	if [[ $REPLY =~ ^-?[[:digit:]]*\.[[:digit:]]+$ ]]; then
+		echo "'$REPLY float'"
+	else
+		echo "'$REPLY' not float"
+	fi
+	
+	#Integer number&
+	if [[ $REPLY =~ ^-?[[:digit:]]+$ ]]; then
+		echo "'$REPLY' is integer"
+	else
+		echo "'$REPLY' not integer"
+	fi
+else
+	echo "'$REPLY' not valid"
+fi

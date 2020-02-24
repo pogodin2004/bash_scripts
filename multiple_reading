@@ -1,0 +1,7 @@
+#!/bin/bash
+
+read -p "Enter one or more values > " var1 var2 var3
+
+echo -e "\nvar1 = $var1"
+echo -e "\nvar2 = $var2"
+echo -e "\nvar3 = $var3"

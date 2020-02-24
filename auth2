@@ -1,0 +1,9 @@
+#!/bin/bash
+LOG=/var/log/auth.log
+tail -0f "${LOG}" | while read i
+do
+      case $i in
+                "FAILED LOGIN")
+      zenity --info --text="Authentication failure" ;;
+      esac
+done
